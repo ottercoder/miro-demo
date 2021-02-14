@@ -1,0 +1,179 @@
+{
+	"info": {
+		"_postman_id": "480cf9d1-6160-4f7a-b7d0-8434945d2b60",
+		"name": "miro",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Widgets",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/widgets",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"widgets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Widgets Paginated",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/widgets?page=0&size=500",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"widgets"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "500"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Widgets Paginated By Area",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/widgets?page=0&size=500&xLeft=-70&yLow=-70&xRight=70&yTop=70",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"widgets"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "500"
+						},
+						{
+							"key": "xLeft",
+							"value": "-70"
+						},
+						{
+							"key": "yLow",
+							"value": "-70"
+						},
+						{
+							"key": "xRight",
+							"value": "70"
+						},
+						{
+							"key": "yTop",
+							"value": "70"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Widget by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/widgets/:id",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"widgets",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "565391b9-69da-48e5-beaa-febf98dbe467"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Widget",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"x\": 0,\n    \"y\": 0,\n    \"z\": 0,\n    \"width\": 60,\n    \"height\": 60\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/widgets",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"widgets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Widget",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"x\": 0,\n    \"y\": 0,\n    \"z\": -1,\n    \"width\": 200,\n    \"height\": 100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/widgets/:id",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"widgets",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "b930f7a3-3d5f-48e6-a6cd-49d2a55afcbb"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

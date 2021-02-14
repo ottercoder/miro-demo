@@ -10,9 +10,11 @@ import java.util.NoSuchElementException;
 import java.util.TreeMap;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@Profile("memory")
 public class WidgetRepositoryMemoryImpl implements WidgetRepository {
 
     private final HashMap<UUID, Widget> widgetsRepository = new HashMap<>();
@@ -67,18 +69,30 @@ public class WidgetRepositoryMemoryImpl implements WidgetRepository {
         return zIndexWidgetsRepository;
     }
 
-    private List<Widget> getWidgetsList() {
-        return zIndexWidgetsRepository.values()
-            .stream()
-            .map(Widget::new)
-            .collect(Collectors.toList());
-    }
-
     @Override
     public List<Widget> getWidgetsPaginated(int page, int size) {
         List<Widget> widgets = getWidgetsList();
 
         return getPageOfList(page, size, widgets);
+    }
+
+    @Override
+    public List<Widget> getWidgetsPaginatedByArea(int page, int size, Coordinates downLeft, Coordinates topRight) {
+        List<Widget> widgetsByArea = getWidgetsList().stream()
+            .filter(widget ->
+                (widget.getX() - widget.getWidth()) >= downLeft.getX()
+                    && (widget.getY() - widget.getHeight()) >= downLeft.getY()
+                    && (widget.getX() + widget.getWidth()) <= topRight.getX()
+                    && (widget.getY() + widget.getHeight()) <= topRight.getY())
+            .collect(Collectors.toList());
+        return getPageOfList(page, size, widgetsByArea);
+    }
+
+    private List<Widget> getWidgetsList() {
+        return zIndexWidgetsRepository.values()
+            .stream()
+            .map(Widget::new)
+            .collect(Collectors.toList());
     }
 
     private <T> List<T> getPageOfList(int page, int size, List<T> list) {
@@ -98,18 +112,6 @@ public class WidgetRepositoryMemoryImpl implements WidgetRepository {
             }
         }
         return Collections.emptyList();
-    }
-
-    @Override
-    public List<Widget> getWidgetsPaginatedByArea(int page, int size, Coordinates downLeft, Coordinates topRight) {
-        List<Widget> widgetsByArea = getWidgetsList().stream()
-            .filter(widget ->
-                (widget.getX() - widget.getWidth()) >= downLeft.getX()
-                    && (widget.getY() - widget.getHeight()) >= downLeft.getY()
-                    && (widget.getX() + widget.getWidth()) <= topRight.getX()
-                    && (widget.getY() + widget.getHeight()) <= topRight.getY())
-            .collect(Collectors.toList());
-        return getPageOfList(page, size, widgetsByArea);
     }
 
 }

@@ -8,17 +8,20 @@
 		<version>2.4.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.ottercoder</groupId>
 	<artifactId>miro-take-home-test</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>miroTakeHomeTest</name>
 	<description>Take Home Test for Miro</description>
+
 	<properties>
 		<java.version>11</java.version>
 		<jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
 		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
 		<coverage.reports.dir>${project.build.directory}/coverage-reports</coverage.reports.dir>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -33,15 +36,10 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
