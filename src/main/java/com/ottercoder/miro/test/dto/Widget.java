@@ -1,27 +1,33 @@
 package com.ottercoder.miro.test.dto;
 
 import java.util.UUID;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Entity
 @AllArgsConstructor
+@NoArgsConstructor
 public class Widget {
 
+    @Id
     private UUID id;
     @NotNull
-    private final Integer x;
+    private Integer x;
     @NotNull
-    private final Integer y;
+    private Integer y;
     private Integer z;
     @Min(value = 1, message = "Width and height are integers > 0")
     @NotNull
-    private final Integer width;
+    private Integer width;
     @Min(value = 1, message = "Width and height are integers > 0")
     @NotNull
-    private final Integer height;
+    private Integer height;
 
     public Widget(Widget widget) {
         this.id = UUID.fromString(widget.getId().toString());

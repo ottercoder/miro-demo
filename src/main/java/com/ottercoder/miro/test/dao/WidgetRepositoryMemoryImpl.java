@@ -2,10 +2,8 @@ package com.ottercoder.miro.test.dao;
 
 import com.ottercoder.miro.test.dto.Coordinates;
 import com.ottercoder.miro.test.dto.Widget;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -65,7 +63,7 @@ public class WidgetRepositoryMemoryImpl implements WidgetRepository {
     }
 
     @Override
-    public Map<Integer, Widget> getZIndexMap() {
+    public TreeMap<Integer, Widget> getZIndexMap() {
         return zIndexWidgetsRepository;
     }
 
@@ -73,7 +71,7 @@ public class WidgetRepositoryMemoryImpl implements WidgetRepository {
     public List<Widget> getWidgetsPaginated(int page, int size) {
         List<Widget> widgets = getWidgetsList();
 
-        return getPageOfList(page, size, widgets);
+        return PaginationUtils.getPageOfList(page, size, widgets);
     }
 
     @Override
@@ -85,7 +83,7 @@ public class WidgetRepositoryMemoryImpl implements WidgetRepository {
                     && (widget.getX() + widget.getWidth()) <= topRight.getX()
                     && (widget.getY() + widget.getHeight()) <= topRight.getY())
             .collect(Collectors.toList());
-        return getPageOfList(page, size, widgetsByArea);
+        return PaginationUtils.getPageOfList(page, size, widgetsByArea);
     }
 
     private List<Widget> getWidgetsList() {
@@ -93,25 +91,6 @@ public class WidgetRepositoryMemoryImpl implements WidgetRepository {
             .stream()
             .map(Widget::new)
             .collect(Collectors.toList());
-    }
-
-    private <T> List<T> getPageOfList(int page, int size, List<T> list) {
-        if (list.isEmpty()) {
-            return Collections.emptyList();
-        }
-        if (size <= 0 || size > list.size()) {
-            size = list.size();
-        }
-        int numPages = (int) Math.ceil((double) list.size() / (double) size);
-        if (numPages < page) {
-            return Collections.emptyList();
-        }
-        for (int pageNum = 0; pageNum < numPages; pageNum++) {
-            if (pageNum == page) {
-                return list.subList(pageNum * size, Math.min((pageNum + 1) * size, list.size()));
-            }
-        }
-        return Collections.emptyList();
     }
 
 }

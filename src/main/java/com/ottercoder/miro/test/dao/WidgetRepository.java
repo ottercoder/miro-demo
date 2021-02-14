@@ -3,7 +3,7 @@ package com.ottercoder.miro.test.dao;
 import com.ottercoder.miro.test.dto.Coordinates;
 import com.ottercoder.miro.test.dto.Widget;
 import java.util.List;
-import java.util.Map;
+import java.util.TreeMap;
 import java.util.UUID;
 
 public interface WidgetRepository {
@@ -20,7 +20,7 @@ public interface WidgetRepository {
 
     boolean zIndexExists(int z);
 
-    Map<Integer, Widget> getZIndexMap();
+    TreeMap<Integer, Widget> getZIndexMap();
 
     List<Widget> getWidgetsPaginated(int page, int size);
 

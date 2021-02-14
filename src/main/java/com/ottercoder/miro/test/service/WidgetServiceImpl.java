@@ -64,8 +64,7 @@ public class WidgetServiceImpl implements WidgetService {
     }
 
     @Override
-    public List<Widget> getWidgetsPaginatedByArea(int page, int size, Coordinates downLeft,
-        Coordinates topRight) {
+    public List<Widget> getWidgetsPaginatedByArea(int page, int size, Coordinates downLeft, Coordinates topRight) {
         return widgetRepository.getWidgetsPaginatedByArea(page, size, downLeft, topRight);
     }
 
