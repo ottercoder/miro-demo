@@ -15,11 +15,11 @@ public interface WidgetRepository {
 
     Widget getWidget(UUID id);
 
-    List<Widget> getWidgets();
-
     int getHighestZIndex();
 
     boolean zIndexExists(int z);
 
     Map<Integer, Widget> getZIndexMap();
+
+    List<Widget> getWidgetsPaginated(int page, int size);
 }

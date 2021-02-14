@@ -75,10 +75,4 @@ class WidgetServiceImplTest {
         assertThat(widget).isEqualTo(testWidget);
     }
 
-    @Test
-    void getWidgets() {
-        when(widgetRepository.getWidgets()).thenReturn(Collections.singletonList(testWidget));
-        List<Widget> widgets = widgetService.getWidgets();
-        assertThat(widgets.size()).isEqualTo(1);
-    }
 }

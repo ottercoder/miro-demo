@@ -58,8 +58,8 @@ public class WidgetServiceImpl implements WidgetService {
     }
 
     @Override
-    public List<Widget> getWidgets() {
-        return widgetRepository.getWidgets();
+    public List<Widget> getWidgetsPaginated(int page, int size) {
+        return widgetRepository.getWidgetsPaginated(page, size);
     }
 
     private Widget[] moveExistingWidgetsHigherSmart(Widget[] widgets) {

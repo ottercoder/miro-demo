@@ -1,6 +1,7 @@
 package com.ottercoder.miro.test.dao;
 
 import com.ottercoder.miro.test.dto.Widget;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,14 +48,6 @@ public class WidgetRepositoryMemoryImpl implements WidgetRepository {
     }
 
     @Override
-    public List<Widget> getWidgets() {
-        return zIndexWidgetsRepository.values()
-            .stream()
-            .map(Widget::new)
-            .collect(Collectors.toList());
-    }
-
-    @Override
     public int getHighestZIndex() {
         try {
             return zIndexWidgetsRepository.lastKey();
@@ -71,6 +64,31 @@ public class WidgetRepositoryMemoryImpl implements WidgetRepository {
     @Override
     public Map<Integer, Widget> getZIndexMap() {
         return zIndexWidgetsRepository;
+    }
+
+    @Override
+    public List<Widget> getWidgetsPaginated(int page, int size) {
+        List<Widget> widgets = zIndexWidgetsRepository.values()
+            .stream()
+            .map(Widget::new)
+            .collect(Collectors.toList());
+
+        if (widgets.isEmpty()) {
+            return Collections.emptyList();
+        }
+        if (size <= 0 || size > widgets.size()) {
+            size = widgets.size();
+        }
+        int numPages = (int) Math.ceil((double) widgets.size() / (double) size);
+        if (numPages < page) {
+            return Collections.emptyList();
+        }
+        for (int pageNum = 0; pageNum < numPages; pageNum++) {
+            if (pageNum == page) {
+                return widgets.subList(pageNum * size, Math.min((pageNum+1) * size, widgets.size()));
+            }
+        }
+        return Collections.emptyList();
     }
 
 }

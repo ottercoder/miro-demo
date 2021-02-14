@@ -14,6 +14,6 @@ public interface WidgetService {
 
     Widget getWidget(UUID id);
 
-    List<Widget> getWidgets();
+    List<Widget> getWidgetsPaginated(int page, int size);
 
 }

@@ -11,6 +11,9 @@ import org.junit.jupiter.api.Test;
 
 class WidgetRepositoryMemoryImplTest {
 
+    private final int PAGINATION_SIZE = 100;
+    private final int PAGINATION_PAGE_ZERO = 0;
+
     private final WidgetRepositoryMemoryImpl widgetRepositoryMemory = new WidgetRepositoryMemoryImpl();
     private final Widget testWidget = new Widget(UUID.randomUUID(), 0, 0, 0, 100, 100);
 
@@ -21,7 +24,7 @@ class WidgetRepositoryMemoryImplTest {
 
     @Test
     void saveWidget() {
-        List<Widget> widgets = widgetRepositoryMemory.getWidgets();
+        List<Widget> widgets = widgetRepositoryMemory.getWidgetsPaginated(PAGINATION_PAGE_ZERO, PAGINATION_SIZE);
 
         assertThat(widgets.size()).isEqualTo(1);
         assertThat(widgets.get(0)).isEqualTo(testWidget);
@@ -41,11 +44,11 @@ class WidgetRepositoryMemoryImplTest {
 
     @Test
     void deleteWidget() {
-        List<Widget> widgets = widgetRepositoryMemory.getWidgets();
+        List<Widget> widgets = widgetRepositoryMemory.getWidgetsPaginated(PAGINATION_PAGE_ZERO, PAGINATION_SIZE);
         assertThat(widgets.size()).isEqualTo(1);
 
         widgetRepositoryMemory.deleteWidget(testWidget.getId());
-        List<Widget> newWidgetsList = widgetRepositoryMemory.getWidgets();
+        List<Widget> newWidgetsList = widgetRepositoryMemory.getWidgetsPaginated(PAGINATION_PAGE_ZERO, PAGINATION_SIZE);
         assertThat(newWidgetsList.isEmpty()).isTrue();
     }
 
@@ -62,10 +65,10 @@ class WidgetRepositoryMemoryImplTest {
         int max = 10;
         int numberOfWidgets = random.nextInt(max - min + 1) + min;
         for (int i = 0; i < numberOfWidgets; i++) {
-            widgetRepositoryMemory.saveWidget(new Widget(UUID.randomUUID(), 0, 0, i+100, 100, 100));
+            widgetRepositoryMemory.saveWidget(new Widget(UUID.randomUUID(), 0, 0, i+ 100, 100, 100));
         }
 
-        List<Widget> newWidgetsList = widgetRepositoryMemory.getWidgets();
+        List<Widget> newWidgetsList = widgetRepositoryMemory.getWidgetsPaginated(PAGINATION_PAGE_ZERO, PAGINATION_SIZE);
         assertThat(newWidgetsList.size()).isEqualTo(numberOfWidgets+1);
     }
 }
