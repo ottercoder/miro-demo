@@ -1,6 +1,7 @@
 package com.ottercoder.miro.test.service;
 
 import com.ottercoder.miro.test.dao.WidgetRepository;
+import com.ottercoder.miro.test.dto.Coordinates;
 import com.ottercoder.miro.test.dto.Widget;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class WidgetServiceImpl implements WidgetService {
 
-    static final int Z_INCREMENT = 10000;
+    static final int Z_INCREMENT = 10000; //might be much higher, depending on expected number of widgets
 
     private final WidgetRepository widgetRepository;
 
@@ -60,6 +61,12 @@ public class WidgetServiceImpl implements WidgetService {
     @Override
     public List<Widget> getWidgetsPaginated(int page, int size) {
         return widgetRepository.getWidgetsPaginated(page, size);
+    }
+
+    @Override
+    public List<Widget> getWidgetsPaginatedByArea(int page, int size, Coordinates downLeft,
+        Coordinates topRight) {
+        return widgetRepository.getWidgetsPaginatedByArea(page, size, downLeft, topRight);
     }
 
     private Widget[] moveExistingWidgetsHigherSmart(Widget[] widgets) {

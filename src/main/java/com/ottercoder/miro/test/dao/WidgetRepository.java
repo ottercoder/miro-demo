@@ -1,5 +1,6 @@
 package com.ottercoder.miro.test.dao;
 
+import com.ottercoder.miro.test.dto.Coordinates;
 import com.ottercoder.miro.test.dto.Widget;
 import java.util.List;
 import java.util.Map;
@@ -22,4 +23,6 @@ public interface WidgetRepository {
     Map<Integer, Widget> getZIndexMap();
 
     List<Widget> getWidgetsPaginated(int page, int size);
+
+    List<Widget> getWidgetsPaginatedByArea(int page, int size, Coordinates downLeft, Coordinates topRight);
 }

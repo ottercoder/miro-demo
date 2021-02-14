@@ -1,5 +1,6 @@
 package com.ottercoder.miro.test.controller;
 
+import com.ottercoder.miro.test.dto.Coordinates;
 import com.ottercoder.miro.test.dto.Widget;
 import com.ottercoder.miro.test.service.WidgetService;
 import java.util.List;
@@ -45,10 +46,20 @@ public class WidgetController {
         return widgetService.getWidget(id);
     }
 
-
     @GetMapping()
-    public List<Widget> getWidgetsPaginated(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        return widgetService.getWidgetsPaginated(page, size);
+    public List<Widget> getWidgetsPaginated(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size,
+        @RequestParam(required = false) Integer xLeft,
+        @RequestParam(required = false) Integer yLow,
+        @RequestParam(required = false) Integer xRight,
+        @RequestParam(required = false) Integer yTop) {
+        if (xLeft != null && yLow != null && xRight != null && yTop != null) {
+            return widgetService
+                .getWidgetsPaginatedByArea(page, size, new Coordinates(xLeft, yLow), new Coordinates(xRight, yTop));
+        } else {
+            return widgetService.getWidgetsPaginated(page, size);
+        }
     }
 
 }

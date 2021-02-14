@@ -1,5 +1,6 @@
 package com.ottercoder.miro.test.service;
 
+import com.ottercoder.miro.test.dto.Coordinates;
 import com.ottercoder.miro.test.dto.Widget;
 import java.util.List;
 import java.util.UUID;
@@ -16,4 +17,5 @@ public interface WidgetService {
 
     List<Widget> getWidgetsPaginated(int page, int size);
 
+    List<Widget> getWidgetsPaginatedByArea(int page, int size, Coordinates coordinates, Coordinates coordinates1);
 }
