@@ -30,6 +30,12 @@ public class WidgetServiceImpl implements WidgetService {
             widget.setZ(highestZIndex + Z_INCREMENT);
         }
 
+        shiftIfNeeded(widget);
+
+        return widgetRepository.saveWidget(widget);
+    }
+
+    private void shiftIfNeeded(Widget widget) {
         if (widgetRepository.zIndexExists(widget.getZ())) {
             Map<Integer, Widget> zIndexMap = widgetRepository.getZIndexMap();
             Widget[] widgets = zIndexMap.entrySet().stream()
@@ -39,12 +45,11 @@ public class WidgetServiceImpl implements WidgetService {
                 .toArray(Widget[]::new);
             moveExistingWidgetsHigherSmart(widgets);
         }
-
-        return widgetRepository.saveWidget(widget);
     }
 
     @Override
     public Widget updateWidget(UUID id, Widget widget) {
+        shiftIfNeeded(widget);
         return widgetRepository.updateWidget(id, widget);
     }
 
